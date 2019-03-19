@@ -26,6 +26,7 @@ dependencies:
   graphql_flutter: ^1.0.0-beta
   flutter_platform_widgets: ^0.9.5
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

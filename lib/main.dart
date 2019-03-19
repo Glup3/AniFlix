@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           builder: (QueryResult result) {
             if (result.errors != null) {
-              return PlatformText(result.errors.toString());
+              return Text(result.errors.toString());
             }
 
             if (result.loading) {
