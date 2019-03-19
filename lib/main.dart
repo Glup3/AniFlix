@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:aniflix/data/queries.dart' as queries;
 
 void main() => runApp(MyApp());
@@ -52,12 +53,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
+      bottomNavBar: PlatformNavBar(
+        ios: (_) => CupertinoTabBarData(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.tv)),
+            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.bookOpen)),
+            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.search)),
+            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
+            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
+          ],
+        ),
+      ),
       appBar: PlatformAppBar(
         title: Text('AniFlix'),
-        leading: PlatformIconButton(
-          icon: Icon(Icons.search),
-          iosIcon: Icon(CupertinoIcons.search),
-        ),
       ),
       body: Center(
         child: Query(
