@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   graphql_flutter: ^1.0.0-beta
   flutter_platform_widgets: ^0.9.5
+  font_awesome_flutter: ^8.4.0
 
 
 dev_dependencies:

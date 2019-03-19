@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:aniflix/data/queries.dart' as queries;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:aniflix/screens/home_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -51,35 +52,41 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
-        title: Text('AniFlix'),
-        leading: PlatformIconButton(
-          icon: Icon(Icons.search),
-          iosIcon: Icon(CupertinoIcons.search),
-        ),
-      ),
-      body: Center(
-        child: Query(
-          options: QueryOptions(
-            document: queries.getAnimeIdAndTitle,
-            variables: {
-              'id': 1,
+    return PlatformWidget(
+      android: (_) => Scaffold(
+            appBar: AppBar(
+              title: Text('AniFlix'),
+            ),
+            body: HomeScreen(),
+            drawer: Drawer(),
+          ),
+      ios: (_) => CupertinoTabScaffold(
+            tabBar: _buildCupertinoTabBar(),
+            tabBuilder: (BuildContext context, int index) {
+              return CupertinoTabView(
+                builder: (BuildContext context) {
+                  return CupertinoPageScaffold(
+                    navigationBar: CupertinoNavigationBar(
+                      middle: Text('What is this'),
+                    ),
+                    child: HomeScreen(),
+                  );
+                },
+              );
             },
           ),
-          builder: (QueryResult result) {
-            if (result.errors != null) {
-              return Text(result.errors.toString());
-            }
+    );
+  }
 
-            if (result.loading) {
-              return CircularProgressIndicator();
-            }
-
-            return Text(result.data['Media']['title']['english']);
-          },
-        ),
-      ),
+  Widget _buildCupertinoTabBar() {
+    return CupertinoTabBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.tv)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.bookOpen)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.search)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
+      ],
     );
   }
 }
