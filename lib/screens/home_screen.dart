@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Text('Winter4'),
           ],
         ),
-        drawer: Drawer(),
+        drawer: _buildDrawer(),
       ),
     );
   }
@@ -72,6 +72,52 @@ class _HomeScreenState extends State<HomeScreen> {
         BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
         BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
       ],
+    );
+  }
+
+  Widget _buildDrawer() {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            currentAccountPicture: CircleAvatar(
+              child: Text('DGlup3'),
+            ),
+            accountName: Text('Der User?'),
+            accountEmail: Text('XD'),
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.tv),
+            title: Text('Anime'),
+            onTap: () {},
+            selected: true,
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.bookOpen),
+            title: Text('Manga'),
+            onTap: () {},
+            selected: false,
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.chartLine),
+            title: Text('Trending'),
+            onTap: () {},
+            selected: false,
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.edit),
+            title: Text('Reviews'),
+            onTap: () {},
+            selected: false,
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.newspaper),
+            title: Text('News'),
+            onTap: () {},
+            selected: false,
+          ),
+        ],
+      ),
     );
   }
 }
