@@ -31,6 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Tab(text: 'Fall'),
             ],
           ),
+          actions: <Widget>[
+            _buildPopupMenu(),
+          ],
         ),
         body: TabBarView(
           children: <Widget>[
@@ -55,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
               navigationBar: CupertinoNavigationBar(
                 middle: Text('AniFlix'),
               ),
-              child: Center(child: Text('Wie die Homepage aussehen könnte'),),
+              child: Center(
+                child: Text('Wie die Homepage aussehen könnte'),
+              ),
             );
           },
         );
@@ -132,4 +137,36 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Widget _buildPopupMenu() {
+    return PopupMenuButton<MenuOption>(
+      onSelected: _onMenuClick,
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuOption>>[
+            PopupMenuItem<MenuOption>(
+              value: MenuOption.settings,
+              child: Text('Settings'),
+            ),
+            PopupMenuItem<MenuOption>(
+              value: MenuOption.donate,
+              child: Text('Donate'),
+            ),
+            PopupMenuItem<MenuOption>(
+              value: MenuOption.about,
+              child: Text('About'),
+            ),
+          ],
+    );
+  }
+
+  void _onMenuClick(MenuOption option) {
+    switch (option) {
+      case MenuOption.settings:
+        //TODO Navigate to Settings Screen
+        break;
+      default:
+        break;
+    }
+  }
 }
+
+enum MenuOption { settings, donate, about }
