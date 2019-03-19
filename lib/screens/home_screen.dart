@@ -117,6 +117,12 @@ class _HomeScreenState extends State<HomeScreen> {
             selected: false,
           ),
           ListTile(
+            leading: Icon(FontAwesomeIcons.userAlt),
+            title: Text('User'),
+            onTap: () {},
+            selected: false,
+          ),
+          ListTile(
             leading: Icon(FontAwesomeIcons.tint),
             title: Text('Theme'),
             onTap: () {},
