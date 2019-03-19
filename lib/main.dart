@@ -52,42 +52,77 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      bottomNavBar: PlatformNavBar(
-        ios: (_) => CupertinoTabBarData(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.tv)),
-            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.bookOpen)),
-            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.search)),
-            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
-            BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
-          ],
-        ),
-      ),
-      appBar: PlatformAppBar(
-        title: Text('AniFlix'),
-      ),
-      body: Center(
-        child: Query(
-          options: QueryOptions(
-            document: queries.getAnimeIdAndTitle,
-            variables: {
-              'id': 1,
+    return PlatformWidget(
+      android: (_) => Scaffold(
+            appBar: AppBar(
+              title: Text('AniFlix'),
+            ),
+            body: Center(
+              child: Query(
+                options: QueryOptions(
+                  document: queries.getAnimeIdAndTitle,
+                  variables: {
+                    'id': 1,
+                  },
+                ),
+                builder: (QueryResult result) {
+                  if (result.errors != null) {
+                    return Text(result.errors.toString());
+                  }
+
+                  if (result.loading) {
+                    return CircularProgressIndicator();
+                  }
+
+                  return Text(result.data['Media']['title']['english']);
+                },
+              ),
+            ),
+            drawer: Drawer(),
+          ),
+      ios: (_) => CupertinoTabScaffold(
+            tabBar: CupertinoTabBar(
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.tv)),
+                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.bookOpen)),
+                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.search)),
+                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
+                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
+              ],
+            ),
+            tabBuilder: (BuildContext context, int index) {
+              return CupertinoTabView(
+                builder: (BuildContext context) {
+                  return CupertinoPageScaffold(
+                      navigationBar: CupertinoNavigationBar(
+                        middle: Text('What is this'),
+                      ),
+                      child: Center(
+                        child: Query(
+                          options: QueryOptions(
+                            document: queries.getAnimeIdAndTitle,
+                            variables: {
+                              'id': 1,
+                            },
+                          ),
+                          builder: (QueryResult result) {
+                            if (result.errors != null) {
+                              return Text(result.errors.toString());
+                            }
+
+                            if (result.loading) {
+                              return CircularProgressIndicator();
+                            }
+
+                            return Text(
+                                result.data['Media']['title']['english']);
+                          },
+                        ),
+                      ));
+                },
+              );
             },
           ),
-          builder: (QueryResult result) {
-            if (result.errors != null) {
-              return Text(result.errors.toString());
-            }
-
-            if (result.loading) {
-              return CircularProgressIndicator();
-            }
-
-            return Text(result.data['Media']['title']['english']);
-          },
-        ),
-      ),
     );
   }
 }
