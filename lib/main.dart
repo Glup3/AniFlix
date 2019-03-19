@@ -61,15 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
             drawer: Drawer(),
           ),
       ios: (_) => CupertinoTabScaffold(
-            tabBar: CupertinoTabBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.tv)),
-                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.bookOpen)),
-                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.search)),
-                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
-                BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
-              ],
-            ),
+            tabBar: _buildCupertinoTabBar(),
             tabBuilder: (BuildContext context, int index) {
               return CupertinoTabView(
                 builder: (BuildContext context) {
@@ -83,6 +75,18 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
+    );
+  }
+
+  Widget _buildCupertinoTabBar() {
+    return CupertinoTabBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.tv)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.bookOpen)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.search)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
+      ],
     );
   }
 }
