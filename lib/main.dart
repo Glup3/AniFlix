@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:aniflix/data/queries.dart' as queries;
+import 'package:aniflix/screens/home_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -57,27 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             appBar: AppBar(
               title: Text('AniFlix'),
             ),
-            body: Center(
-              child: Query(
-                options: QueryOptions(
-                  document: queries.getAnimeIdAndTitle,
-                  variables: {
-                    'id': 1,
-                  },
-                ),
-                builder: (QueryResult result) {
-                  if (result.errors != null) {
-                    return Text(result.errors.toString());
-                  }
-
-                  if (result.loading) {
-                    return CircularProgressIndicator();
-                  }
-
-                  return Text(result.data['Media']['title']['english']);
-                },
-              ),
-            ),
+            body: HomeScreen(),
             drawer: Drawer(),
           ),
       ios: (_) => CupertinoTabScaffold(
@@ -94,31 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
               return CupertinoTabView(
                 builder: (BuildContext context) {
                   return CupertinoPageScaffold(
-                      navigationBar: CupertinoNavigationBar(
-                        middle: Text('What is this'),
-                      ),
-                      child: Center(
-                        child: Query(
-                          options: QueryOptions(
-                            document: queries.getAnimeIdAndTitle,
-                            variables: {
-                              'id': 1,
-                            },
-                          ),
-                          builder: (QueryResult result) {
-                            if (result.errors != null) {
-                              return Text(result.errors.toString());
-                            }
-
-                            if (result.loading) {
-                              return CircularProgressIndicator();
-                            }
-
-                            return Text(
-                                result.data['Media']['title']['english']);
-                          },
-                        ),
-                      ));
+                    navigationBar: CupertinoNavigationBar(
+                      middle: Text('What is this'),
+                    ),
+                    child: HomeScreen(),
+                  );
                 },
               );
             },
