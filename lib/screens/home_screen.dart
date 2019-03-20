@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_tab_bar_no_ripple/flutter_tab_bar_no_ripple.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,12 +24,15 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('AniFlix'),
-          bottom: TabBar(
+          bottom: TabBarNoRipple(
+            indicatorColor: Colors.white,
+            indicatorWeight: 5,
+            isScrollable: true,
             tabs: <Widget>[
-              Tab(text: 'Winter'),
-              Tab(text: 'Spring'),
-              Tab(text: 'Summer'),
-              Tab(text: 'Fall'),
+              Container(child: Tab(text: 'Winter'), width: 100),
+              Container(child: Tab(text: 'Spring'), width: 100),
+              Container(child: Tab(text: 'Summer'), width: 100),
+              Container(child: Tab(text: 'Fall'), width: 100),
             ],
           ),
           actions: <Widget>[
