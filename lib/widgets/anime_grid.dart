@@ -18,7 +18,6 @@ GraphQLClient client = GraphQLClient(
 );
 
 class _AnimeGridViewState extends State<AnimeGridView> {
-
   Future<QueryResult> _fetchEntries(int pageNumber, int pageSize) async {
     return await client.query(
       QueryOptions(
@@ -34,38 +33,58 @@ class _AnimeGridViewState extends State<AnimeGridView> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO Fix with last page
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int pageNumber) {
-        return KeepAliveFutureBuilder(
-          future: this._fetchEntries(pageNumber, 20),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                if (snapshot.hasError) {
-                  return Text('ERROR: ${snapshot.error}');
+    return Query(
+      options: QueryOptions(
+        document: queries.getAnimesIdAndTitle,
+        variables: {
+          'search': 'Fate/Zero',
+          'page': 1,
+          'perPage': 20,
+        },
+      ),
+      builder: (QueryResult result) {
+        if (result.errors != null) {
+          return Text(result.errors.toString());
+        }
+
+        if (result.loading) {
+          return CircularProgressIndicator();
+        }
+
+        return ListView.builder(
+          itemCount: result.data['Page']['pageInfo']['lastPage'],
+          itemBuilder: (BuildContext context, int pageNumber) {
+            return KeepAliveFutureBuilder(
+              future: this._fetchEntries(pageNumber + 1, 20),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    if (snapshot.hasError) {
+                      return Text('ERROR: ${snapshot.error}');
+                    }
+
+                    QueryResult result = snapshot.data;
+
+                    if (result.errors != null) {
+                      return Text(result.errors.toString());
+                    }
+
+                    if (result.loading) {
+                      return CircularProgressIndicator();
+                    }
+
+                    return _buildPage(result.data['Page']['media']);
+
+                  default:
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 2,
+                      child: Align(
+                          alignment: Alignment.topCenter,
+                          child: CircularProgressIndicator()),
+                    );
                 }
-
-                QueryResult result = snapshot.data;
-
-                if (result.errors != null) {
-                  return Text(result.errors.toString());
-                }
-
-                if (result.loading) {
-                  return CircularProgressIndicator();
-                }
-
-                return _buildPage(result.data['Page']['media']);
-
-              default:
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height * 2,
-                  child: Align(
-                      alignment: Alignment.topCenter,
-                      child: CircularProgressIndicator()),
-                );
-            }
+              },
+            );
           },
         );
       },
