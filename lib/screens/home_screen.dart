@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_tab_bar_no_ripple/flutter_tab_bar_no_ripple.dart';
 
-import 'package:aniflix/widgets/anime_grid.dart';
+import 'package:anilife/widgets/anime_grid.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('AniFlix'),
+          title: Text('AniLife'),
           bottom: TabBarNoRipple(
             indicatorColor: Colors.white,
             indicatorWeight: 5,
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (BuildContext context) {
             return CupertinoPageScaffold(
               navigationBar: CupertinoNavigationBar(
-                middle: Text('AniFlix'),
+                middle: Text('AniLife'),
               ),
               child: Center(
                 child: Text('Wie die Homepage aussehen könnte'),

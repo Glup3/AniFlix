@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:aniflix/screens/home_screen.dart';
+import 'package:anilife/screens/home_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    String title = 'AniFlix';
+    String title = 'AniLife';
 
     return GraphQLProvider(
       client: client,
