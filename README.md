@@ -1,4 +1,4 @@
-# AniFlix
+# AniLife
 
 Mobile App written in Flutter. This Application uses the AniList API to display information about anime, manga, etc.
 

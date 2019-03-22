@@ -1,4 +1,4 @@
-package com.example.aniflix;
+package com.example.anilife;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
