@@ -28,6 +28,11 @@ String getAnimesIdAndTitle = """
         title {
           romaji
         }
+        coverImage {
+          extraLarge
+          large
+          medium
+        }
       }
     }
   }

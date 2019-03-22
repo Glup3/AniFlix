@@ -27,6 +27,7 @@ dependencies:
   flutter_platform_widgets: ^0.9.5
   font_awesome_flutter: ^8.4.0
   flutter_tab_bar_no_ripple: ^0.1.1
+  flutter_pagewise: ^1.2.2
 
 
 dev_dependencies:
