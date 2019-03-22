@@ -6,7 +6,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 import 'package:anilife/data/queries.dart' as queries;
-import 'package:anilife/widgets/keep_alive_future_builder.dart';
 
 class AnimeGridView extends StatefulWidget {
   @override
