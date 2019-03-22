@@ -23,11 +23,12 @@ class _AnimeGridViewState extends State<AnimeGridView> {
   Future<List<dynamic>> _getListOfMedias(int pageNumber, int pageSize) async {
      QueryResult result =  await client.query(
       QueryOptions(
-        document: queries.getAnimesIdAndTitle,
+        document: queries.getAnimesOfSeasonAndYear,
         variables: {
-          'search': 'Fate/Zero',
           'page': pageNumber,
           'perPage': pageSize,
+          'seasonYear': 2019,
+          'season': 'WINTER'
         },
       ),
     );
