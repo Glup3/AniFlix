@@ -10,7 +10,6 @@ class CoverCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.green,
       child: GridTile(
         footer: Text(media['title']['romaji']),
         child: Image.network(media['coverImage']['medium'])

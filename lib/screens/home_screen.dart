@@ -6,6 +6,9 @@ import 'package:flutter_tab_bar_no_ripple/flutter_tab_bar_no_ripple.dart';
 
 import 'package:anilife/widgets/anime_grid.dart';
 
+import 'package:anilife/enums/media_format.dart';
+import 'package:anilife/enums/media_season.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -43,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: TabBarView(
           children: <Widget>[
-            AnimeGridView(),
+            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.WINTER, format: MediaFormat.TV),
             Text('Winter2'),
             Text('Winter3'),
             Text('Winter4'),
