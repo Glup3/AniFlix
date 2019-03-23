@@ -1,56 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
-import 'package:anilife/data/queries.dart' as queries;
 import 'package:anilife/widgets/cover_card.dart';
+import 'package:anilife/services/anilist_service.dart';
+
+import 'package:anilife/enums/media_season.dart';
+import 'package:anilife/enums/media_format.dart';
 
 class AnimeGridView extends StatefulWidget {
+  final int pageSize;
+  final int seasonYear;
+  final MediaSeason season;
+  final MediaFormat format;
+
+  AnimeGridView({Key key, @required this.pageSize, @required this.seasonYear, @required this.season, @required this.format}) : super(key: key);
+
   @override
   _AnimeGridViewState createState() => _AnimeGridViewState();
 }
 
-GraphQLClient client = GraphQLClient(
-  link: HttpLink(uri: 'https://graphql.anilist.co'),
-  cache: InMemoryCache(),
-);
-
 class _AnimeGridViewState extends State<AnimeGridView> {
-
-  Future<List<dynamic>> _getListOfMedias(int pageNumber, int pageSize) async {
-     QueryResult result =  await client.query(
-      QueryOptions(
-        document: queries.getAnimesOfSeasonAndYear,
-        variables: {
-          'page': pageNumber,
-          'perPage': pageSize,
-          'seasonYear': 2019,
-          'season': 'WINTER'
-        },
-      ),
-    );
-
-    if (result.errors != null) { return null; }
-
-    if (result.loading) { return null; }
-
-    return result.data['Page']['media'];
-  }
-
   @override
   Widget build(BuildContext context) {
     return PagewiseGridView.count(
-      pageSize: 20,
+      pageSize: widget.pageSize,
       crossAxisCount: 2,
-      itemBuilder: (BuildContext context, dynamic media, int index) => CoverCard(media: media, index: index,),
-      pageFuture: (int pageIndex) {
-        return _getListOfMedias(pageIndex + 1, 20);
-      },
+      itemBuilder: (BuildContext context, dynamic media, int index) =>
+          CoverCard(media: media, index: index),
+      pageFuture: (int pageIndex) => 
+          AniListService.getMediasOfSeason(pageIndex + 1, widget.pageSize, widget.seasonYear, widget.season, widget.format),
     );
   }
-
-  
 }
