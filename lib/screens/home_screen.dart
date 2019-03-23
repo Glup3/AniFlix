@@ -47,9 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
         body: TabBarView(
           children: <Widget>[
             AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.WINTER, format: MediaFormat.TV),
-            Text('Winter2'),
-            Text('Winter3'),
-            Text('Winter4'),
+            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.SPRING, format: MediaFormat.TV),
+            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.SUMMER, format: MediaFormat.TV),
+            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.FALL, format: MediaFormat.TV),
           ],
         ),
         drawer: _buildDrawer(),
