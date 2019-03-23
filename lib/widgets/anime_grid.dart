@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 import 'package:anilife/data/queries.dart' as queries;
+import 'package:anilife/widgets/cover_card.dart';
 
 class AnimeGridView extends StatefulWidget {
   @override
@@ -44,19 +45,12 @@ class _AnimeGridViewState extends State<AnimeGridView> {
     return PagewiseGridView.count(
       pageSize: 20,
       crossAxisCount: 2,
-      itemBuilder: _buildGridTile,
+      itemBuilder: (BuildContext context, dynamic media, int index) => CoverCard(media: media, index: index,),
       pageFuture: (int pageIndex) {
         return _getListOfMedias(pageIndex + 1, 20);
       },
     );
   }
 
-  Widget _buildGridTile(BuildContext context, dynamic media, int index) {
-    return Card(
-      child: GridTile(
-        footer: Text(media['title']['romaji']),
-        child: Image.network(media['coverImage']['medium'])
-      ),
-    );
-  }
+  
 }
