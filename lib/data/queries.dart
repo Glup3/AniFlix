@@ -28,8 +28,50 @@ String getAnimesIdAndTitle = """
         title {
           romaji
         }
+        coverImage {
+          extraLarge
+          large
+          medium
+        }
       }
     }
   }
 """
     .replaceAll('\n', ' ');
+
+
+String getAnimesOfSeasonAndYear = """
+  query(\$page: Int, \$perPage: Int, \$seasonYear: Int, \$season: MediaSeason){
+    Page(page:\$page, perPage: \$perPage){
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+      media(seasonYear: \$seasonYear, season: \$season, format: TV) {
+        id
+        format
+        title{
+          romaji
+        }
+        coverImage {
+          extraLarge
+          large
+          medium
+        }
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+      }
+    }
+  }
+""";
