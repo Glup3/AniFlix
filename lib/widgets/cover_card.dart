@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CoverCard extends StatelessWidget {
-
   final int index;
   final dynamic media;
 
@@ -10,9 +9,36 @@ class CoverCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: GridTile(
-        footer: Text(media['title']['romaji']),
-        child: Image.network(media['coverImage']['medium'])
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: GridTile(
+              child: Image.network(
+                media['coverImage']['large'],
+                fit: BoxFit.fill,
+              ),
+              footer: GridTileBar(
+                backgroundColor: Colors.black.withOpacity(0.75),
+                title: Text(
+                  media['title']['romaji'],
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text('${media['format']} - ${media['episodes']}'),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                splashColor: Colors.blue,
+                onTap: () {},
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

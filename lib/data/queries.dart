@@ -11,6 +11,7 @@ String getMediaOfSeason = """
       media(seasonYear: \$seasonYear, season: \$season, format: \$format) {
         id
         format
+        episodes
         title{
           romaji
         }

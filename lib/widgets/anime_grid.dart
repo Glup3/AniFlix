@@ -27,6 +27,10 @@ class _AnimeGridViewState extends State<AnimeGridView> {
     return PagewiseGridView.count(
       pageSize: widget.pageSize,
       crossAxisCount: 2,
+      childAspectRatio: 0.8,
+      crossAxisSpacing: 8.0,
+      mainAxisSpacing: 8.0,
+      padding: EdgeInsets.all(5),
       itemBuilder: (BuildContext context, dynamic media, int index) =>
           CoverCard(media: media, index: index),
       pageFuture: (int pageIndex) => 
