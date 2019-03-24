@@ -1,7 +1,7 @@
-String getMediaOfSeason = """
-  query(\$page: Int, \$perPage: Int, \$seasonYear: Int, \$season: MediaSeason, \$format: MediaFormat){
+String getAnimesOfSeason = """
+  query(\$page: Int, \$perPage: Int, \$seasonYear: Int, \$season: MediaSeason, \$sort: [MediaSort]){
     Page(page: \$page, perPage: \$perPage){
-      media(seasonYear: \$seasonYear, season: \$season, format: \$format) {
+      media(seasonYear: \$seasonYear, season: \$season, format: TV, sort: \$sort) {
         id
         format
         episodes

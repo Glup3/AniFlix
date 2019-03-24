@@ -6,7 +6,7 @@ import 'package:anilife/data/queries.dart' as queries;
 import 'package:anilife/util/string_helper.dart';
 
 import 'package:anilife/enums/media_season.dart';
-import 'package:anilife/enums/media_format.dart';
+import 'package:anilife/enums/media_sort.dart';
 
 
 
@@ -31,17 +31,17 @@ class AniListService {
     return completer.future;
   }
 
-  static Future<List<dynamic>> getMediasOfSeason(int pageNumber, int pageSize,
-      int seasonYear, MediaSeason season, MediaFormat format) async {
+  static Future<List<dynamic>> getAnimesOfSeason(int pageNumber, int pageSize,
+      int seasonYear, MediaSeason season, MediaSort sort) async {
     QueryResult result = await client.query(
       QueryOptions(
-        document: queries.getMediaOfSeason,
+        document: queries.getAnimesOfSeason,
         variables: {
           'page': pageNumber,
           'perPage': pageSize,
           'seasonYear': seasonYear,
           'season': StringHelper.getStringValueOfEnum(season),
-          'format': StringHelper.getStringValueOfEnum(format),
+          'sort': StringHelper.getStringValueOfEnum(sort),
         },
       ),
     );
