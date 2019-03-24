@@ -5,13 +5,13 @@ import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 import 'package:anilife/widgets/cover_card.dart';
 import 'package:anilife/widgets/cover.dart';
-import 'package:anilife/services/anilist_service.dart';
 import 'package:anilife/util/string_helper.dart';
 
 class MangaGridView extends StatefulWidget {
   final int pageSize;
+  final Function querry;
 
-  MangaGridView({Key key, @required this.pageSize}) : super(key: key);
+  MangaGridView({Key key, @required this.pageSize, @required this.querry}) : super(key: key);
 
   @override
   _MangaGridViewState createState() => _MangaGridViewState();
@@ -36,8 +36,7 @@ class _MangaGridViewState extends State<MangaGridView> {
         );
         return CoverCard(content: mangaCover, index: index);
       },
-      pageFuture: (int pageIndex) => 
-          AniListService.getMostPopularManga(pageIndex + 1, widget.pageSize)
+      pageFuture: (int pageIndex) => widget.querry(pageIndex + 1, widget.pageSize),
     );
   }
 }
