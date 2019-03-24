@@ -23,3 +23,30 @@ String getMediaOfSeason = """
     }
   }
 """.replaceAll('\n', ' ');
+
+String getMostPopularManga = """
+  query(\$page: Int, \$perPage: Int){
+    Page(page: \$page, perPage: \$perPage){
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+      media(format: MANGA, sort: POPULARITY_DESC) {
+        id
+        popularity
+        format
+        chapters
+        genres
+        title {
+          romaji
+        }
+        coverImage {
+          large
+        }
+      }
+    }
+  }
+""".replaceAll('\n', ' ');
