@@ -55,6 +55,26 @@ class AniListService {
     return result.data['Page']['media'];
   }
 
+  static Future<List<dynamic>> getMostPopularAnimes(int pageNumber, int pageSize) async {
+    QueryResult result = await client.query(
+      QueryOptions(
+        document: queries.getMostPopularAnimes,
+        variables: {
+          'page': pageNumber,
+          'perPage': pageSize,
+        },
+      ),
+    );
+
+    if (result.errors != null) {
+      return result.errors;
+    }
+
+    await waitWhile(() => result.loading);
+
+    return result.data['Page']['media'];
+  }
+
   static Future<List<dynamic>> getMostPopularManga(int pageNumber, int pageSize) async {
     QueryResult result = await client.query(
       QueryOptions(

@@ -17,6 +17,32 @@ String getAnimesOfSeason = """
   }
 """.replaceAll('\n', ' ');
 
+String getMostPopularAnimes = """
+  query(\$page: Int, \$perPage: Int){
+    Page(page: \$page, perPage: \$perPage){
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+      media(format: TV, sort: POPULARITY_DESC) {
+        id
+        format
+        episodes
+        genres
+        title {
+          romaji
+        }
+        coverImage {
+          large
+        }
+      }
+    }
+  }
+""".replaceAll('\n', ' ');
+
 String getMostPopularManga = """
   query(\$page: Int, \$perPage: Int){
     Page(page: \$page, perPage: \$perPage){
