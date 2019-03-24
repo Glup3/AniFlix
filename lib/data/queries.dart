@@ -50,3 +50,23 @@ String getMostPopularManga = """
     }
   }
 """.replaceAll('\n', ' ');
+
+String getMostTrendingManga = """
+  query(\$page: Int, \$perPage: Int, \$format: MediaFormat){
+    Page(page: \$page, perPage: \$perPage){
+      media(format: \$format, sort: TRENDING_DESC) {
+        id
+        popularity
+        format
+        chapters
+        genres
+        title{
+          romaji
+        }
+        coverImage {
+          large
+        }
+      }
+    }
+  }
+""".replaceAll('\n', ' ');

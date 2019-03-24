@@ -46,7 +46,6 @@ class AniListService {
       ),
     );
 
-    //TODO error handling
     if (result.errors != null) {
       return result.errors;
     }
@@ -67,7 +66,26 @@ class AniListService {
       ),
     );
 
-    //TODO error handling
+    if (result.errors != null) {
+      return result.errors;
+    }
+
+    await waitWhile(() => result.loading);
+
+    return result.data['Page']['media'];
+  }
+
+  static Future<List<dynamic>> getMostTrendingManga(int pageNumber, int pageSize) async {
+    QueryResult result = await client.query(
+      QueryOptions(
+        document: queries.getMostTrendingManga,
+        variables: {
+          'page': pageNumber,
+          'perPage': pageSize,
+        },
+      ),
+    );
+
     if (result.errors != null) {
       return result.errors;
     }
