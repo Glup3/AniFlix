@@ -25,7 +25,7 @@ class _MangaScreenState extends State<MangaScreen> {
 
   Widget _buildAndroidHome(BuildContext context) {
     return DefaultTabController(
-      length: 1,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: Text('AniLife'),
@@ -82,12 +82,14 @@ class _MangaScreenState extends State<MangaScreen> {
   List<Widget> _getMangaTabBarMenus() {
     return <Widget>[
       Container(child: Tab(text: 'Most Popular'), width: 100),
+      Container(child: Tab(text: 'Best Score'), width: 100),
     ];
   }
 
   List<Widget> _getMangaTabs() {
     return <Widget>[
       MangaNoArgsGridView(pageSize: 10, querry: AniListService.getMostPopularManga),
+      MangaNoArgsGridView(pageSize: 10, querry: AniListService.getBestScoreManga),
     ];
   }
 }
