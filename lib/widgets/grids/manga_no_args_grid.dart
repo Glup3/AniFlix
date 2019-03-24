@@ -7,17 +7,17 @@ import 'package:anilife/widgets/cover_card.dart';
 import 'package:anilife/widgets/cover.dart';
 import 'package:anilife/util/string_helper.dart';
 
-class MangaGridView extends StatefulWidget {
+class MangaNoArgsGridView extends StatefulWidget {
   final int pageSize;
   final Function querry;
 
-  MangaGridView({Key key, @required this.pageSize, @required this.querry}) : super(key: key);
+  MangaNoArgsGridView({Key key, @required this.pageSize, @required this.querry}) : super(key: key);
 
   @override
-  _MangaGridViewState createState() => _MangaGridViewState();
+  _MangaNoArgsGridViewState createState() => _MangaNoArgsGridViewState();
 }
 
-class _MangaGridViewState extends State<MangaGridView> {
+class _MangaNoArgsGridViewState extends State<MangaNoArgsGridView> {
   @override
   Widget build(BuildContext context) {
     return PagewiseGridView.count(
