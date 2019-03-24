@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_tab_bar_no_ripple/flutter_tab_bar_no_ripple.dart';
 
-import 'package:anilife/widgets/anime_grid.dart';
+import 'package:anilife/widgets/grids/anime_grid.dart';
 import 'package:anilife/widgets/popup_menu.dart';
 
 import 'package:anilife/enums/media_format.dart';
