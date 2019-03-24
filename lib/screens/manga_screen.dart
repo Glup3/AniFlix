@@ -6,6 +6,7 @@ import 'package:flutter_tab_bar_no_ripple/flutter_tab_bar_no_ripple.dart';
 
 import 'package:anilife/widgets/popup_menu.dart';
 import 'package:anilife/widgets/grids/manga_grid.dart';
+import 'package:anilife/widgets/my_drawer.dart';
 
 class MangaScreen extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class _MangaScreenState extends State<MangaScreen> {
         body: TabBarView(
           children: _getMangaTabs(),
         ),
-        drawer: _buildDrawer(),
+        drawer: MySideDrawer(tilePosition: 1,),
       ),
     );
   }
@@ -74,69 +75,6 @@ class _MangaScreenState extends State<MangaScreen> {
         BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user)),
         BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cog)),
       ],
-    );
-  }
-
-  Widget _buildDrawer() {
-    return Drawer(
-      child: Column(
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            currentAccountPicture: CircleAvatar(
-              child: Text('DGlup3'),
-            ),
-            accountName: Text('Der User?'),
-            accountEmail: Text('XD'),
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.tv),
-            title: Text('Anime'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/');
-            },
-            selected: false,
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.bookOpen),
-            title: Text('Manga'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            selected: true,
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.chartLine),
-            title: Text('Trending'),
-            onTap: () {},
-            selected: false,
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.edit),
-            title: Text('Reviews'),
-            onTap: () {},
-            selected: false,
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.newspaper),
-            title: Text('News'),
-            onTap: () {},
-            selected: false,
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.userAlt),
-            title: Text('User'),
-            onTap: () {},
-            selected: false,
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.tint),
-            title: Text('Theme'),
-            onTap: () {},
-            selected: false,
-          ),
-        ],
-      ),
     );
   }
 
