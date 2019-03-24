@@ -51,4 +51,34 @@ void main() {
       expect(StringHelper.getStringValueOfEnum(MediaSeason.SUMMER), 'SUMMER');      
     });
   });
+
+  group('Concated String', () {
+    test('should be "school, romance, harem"', () {
+      List<String> items = ['school', 'romance', 'harem'];
+      expect(StringHelper.concatStringsWithCommaOfListWithMaximum(items, 3), 'school, romance, harem');
+    });
+    test('should be "school, romance, harem"', () {
+      List<String> items = ['school', 'romance', 'harem'];
+      expect(StringHelper.concatStringsWithCommaOfListWithMaximum(items, 5), 'school, romance, harem');
+    });
+    test('should be "school"', () {
+      List<String> items = ['school', 'romance', 'harem'];
+      expect(StringHelper.concatStringsWithCommaOfListWithMaximum(items, 1), 'school');
+    });
+    test('should be empty', () {
+      List<String> items = ['school', 'romance', 'harem'];
+      expect(StringHelper.concatStringsWithCommaOfListWithMaximum(items, -5), '');
+    });
+
+    test('should be empty', () {
+      expect(StringHelper.concatStringsWithCommaOfListWithMaximum([], 0), '');      
+    });
+    test('should be empty', () {
+      expect(StringHelper.concatStringsWithCommaOfListWithMaximum([], 3), '');      
+    });
+    test('should be empty', () {
+      expect(StringHelper.concatStringsWithCommaOfListWithMaximum([], -2), '');      
+    });
+  });
+
 }
