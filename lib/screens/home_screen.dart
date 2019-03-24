@@ -14,7 +14,26 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+  List<Widget> tabBarMenuItems;
+  List<Widget> tabBarItems;
+
+  @override
+  void initState() {
+    super.initState();
+    tabBarItems = _getAnimeTabs();
+    tabBarMenuItems =_getAnimeTabBarMenus();
+    tabController = TabController(vsync: this, length: tabBarMenuItems.length);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -24,36 +43,25 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildAndroidHome(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('AniLife'),
-          bottom: TabBarNoRipple(
-            indicatorColor: Colors.white,
-            indicatorWeight: 5,
-            isScrollable: true,
-            tabs: <Widget>[
-              Container(child: Tab(text: 'Winter'), width: 100),
-              Container(child: Tab(text: 'Spring'), width: 100),
-              Container(child: Tab(text: 'Summer'), width: 100),
-              Container(child: Tab(text: 'Fall'), width: 100),
-            ],
-          ),
-          actions: <Widget>[
-            _buildPopupMenu(),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AniLife'),
+        bottom: TabBarNoRipple(
+          controller: tabController,
+          indicatorColor: Colors.white,
+          indicatorWeight: 5,
+          isScrollable: true,
+          tabs: tabBarMenuItems,
         ),
-        body: TabBarView(
-          children: <Widget>[
-            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.WINTER, format: MediaFormat.TV),
-            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.SPRING, format: MediaFormat.TV),
-            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.SUMMER, format: MediaFormat.TV),
-            AnimeGridView(pageSize: 10, seasonYear: 2019, season: MediaSeason.FALL, format: MediaFormat.TV),
-          ],
-        ),
-        drawer: _buildDrawer(),
+        actions: <Widget>[
+          _buildPopupMenu(),
+        ],
       ),
+      body: TabBarView(
+        controller: tabController,
+        children: tabBarItems,
+      ),
+      drawer: _buildDrawer(),
     );
   }
 
@@ -175,6 +183,40 @@ class _HomeScreenState extends State<HomeScreen> {
       default:
         break;
     }
+  }
+
+  List<Widget> _getAnimeTabBarMenus() {
+    return <Widget>[
+      Container(child: Tab(text: 'Winter'), width: 100),
+      Container(child: Tab(text: 'Spring'), width: 100),
+      Container(child: Tab(text: 'Summer'), width: 100),
+      Container(child: Tab(text: 'Fall'), width: 100),
+    ];
+  }
+
+  List<Widget> _getAnimeTabs() {
+    return <Widget>[
+      AnimeGridView(
+          pageSize: 10,
+          seasonYear: 2019,
+          season: MediaSeason.WINTER,
+          format: MediaFormat.TV),
+      AnimeGridView(
+          pageSize: 10,
+          seasonYear: 2019,
+          season: MediaSeason.SPRING,
+          format: MediaFormat.TV),
+      AnimeGridView(
+          pageSize: 10,
+          seasonYear: 2019,
+          season: MediaSeason.SUMMER,
+          format: MediaFormat.TV),
+      AnimeGridView(
+          pageSize: 10,
+          seasonYear: 2019,
+          season: MediaSeason.FALL,
+          format: MediaFormat.TV),
+    ];
   }
 }
 
