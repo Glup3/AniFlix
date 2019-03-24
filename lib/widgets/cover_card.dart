@@ -8,25 +8,24 @@ class CoverCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: content,
-          ),
-          Positioned.fill(
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                splashColor: Colors.blue,
-                onTap: () {},
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15.0),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: content,
               ),
-            ),
-          )
-        ],
-      ),
+              Positioned.fill(
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    splashColor: Colors.blue,
+                    onTap: () {},
+                  ),
+                ),
+              )
+            ],
+          ),
     );
   }
 }
