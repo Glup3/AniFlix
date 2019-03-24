@@ -12,24 +12,12 @@ String getMediaOfSeason = """
         id
         format
         episodes
+        genres
         title{
           romaji
         }
         coverImage {
-          extraLarge
           large
-          medium
-          color
-        }
-        startDate {
-          year
-          month
-          day
-        }
-        endDate {
-          year
-          month
-          day
         }
       }
     }

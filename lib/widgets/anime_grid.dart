@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 import 'package:anilife/widgets/cover_card.dart';
+import 'package:anilife/widgets/cover.dart';
 import 'package:anilife/services/anilist_service.dart';
+import 'package:anilife/util/string_helper.dart';
 
 import 'package:anilife/enums/media_season.dart';
 import 'package:anilife/enums/media_format.dart';
@@ -31,8 +33,15 @@ class _AnimeGridViewState extends State<AnimeGridView> {
       crossAxisSpacing: 8.0,
       mainAxisSpacing: 8.0,
       padding: EdgeInsets.all(5),
-      itemBuilder: (BuildContext context, dynamic media, int index) =>
-          CoverCard(media: media, index: index),
+      itemBuilder: (BuildContext context, dynamic media, int index) {
+        Widget animeCover = ContentCover(
+          imageURL: media['coverImage']['large'],
+          title: media['title']['romaji'],
+          subTextOne: '${media['format']} - ${media['episodes']}',
+          subTextTwo: '${StringHelper.concatStringsWithCommaOfListWithMaximum(media['genres'], 3)}',
+        );
+        return CoverCard(content: animeCover, index: index);
+      },
       pageFuture: (int pageIndex) => 
           AniListService.getMediasOfSeason(pageIndex + 1, widget.pageSize, widget.seasonYear, widget.season, widget.format),
     );
