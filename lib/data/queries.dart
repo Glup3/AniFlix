@@ -3,7 +3,8 @@ String getMediaQueryWithFilters = """
     \$page: Int,
     \$perPage: Int,
     \$status: MediaStatus,
-    \$year: Int,
+    \$seasonYear: Int,
+    \$season: MediaSeason
     \$format: MediaFormat,
     \$genres: [String],
     \$tags: [String],
@@ -12,13 +13,14 @@ String getMediaQueryWithFilters = """
   ) {
     Page(page: \$page, perPage: \$perPage) {
       media (
-        sort: \$sort,
         status: \$status,
-        seasonYear: \$year,
+        seasonYear: \$seasonYear,
         format: \$format,
         genre_in: \$genres,
         tag_in: \$tags,
-        search: \$search
+        search: \$search,
+        sort: \$sort,
+        season: \$season
       ) {
         id
         episodes
