@@ -135,5 +135,16 @@ class AniListService {
     return result.data['Page']['media'];
   }
 
+  static Future<List<dynamic>> getMediaQueryWithFilters(Map<String, dynamic> variables) async {
+    QueryResult result = await client.query(QueryOptions(document: queries.getMediaQueryWithFilters, variables:variables));
+    return _waitingForData(result);
+  }
 
+  static Future<List<dynamic>> _waitingForData(QueryResult result) async {
+    if (result.errors != null) { return result.errors; }
+
+    await waitWhile(() => result.loading);
+
+    return result.data['Page']['media'];
+  }
 }

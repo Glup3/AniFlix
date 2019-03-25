@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:anilife/util/string_helper.dart';
 import 'package:anilife/enums/media_format.dart';
 import 'package:anilife/enums/media_season.dart';
+import 'package:anilife/enums/media_sort.dart';
+import 'package:anilife/services/anilist_service.dart';
 
 void main() {
   group('MediaFormat', () {
@@ -81,4 +83,16 @@ void main() {
     });
   });
 
+
+  group('GraphQL', () {
+    test('print me sth', () async {
+      Map<String, dynamic> variables = {
+        "page": 1,
+        "perPage": 10,
+        "format": StringHelper.getStringValueOfEnum(MediaFormat.TV),
+        "sort": StringHelper.getStringValueOfEnum(MediaSort.POPULARITY_DESC)
+      };
+      print(await AniListService.getMediaQueryWithFilters(variables));
+    });
+  });
 }

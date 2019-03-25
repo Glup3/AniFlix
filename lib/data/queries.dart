@@ -1,3 +1,42 @@
+String getMediaQueryWithFilters = """
+  query (
+    \$page: Int,
+    \$perPage: Int,
+    \$status: MediaStatus,
+    \$year: Int,
+    \$format: MediaFormat,
+    \$genres: [String],
+    \$tags: [String],
+    \$sort: [MediaSort],
+    \$search: String
+  ) {
+    Page(page: \$page, perPage: \$perPage) {
+      media (
+        sort: \$sort,
+        status: \$status,
+        seasonYear: \$year,
+        format: \$format,
+        genre_in: \$genres,
+        tag_in: \$tags,
+        search: \$search
+      ) {
+        id
+        episodes
+        chapters
+        genres
+        format
+        title {
+          romaji
+        }
+        coverImage {
+          large
+        }
+      }
+    }
+  }
+""".replaceAll('\n', ' ');
+
+
 String getAnimesOfSeason = """
   query(\$page: Int, \$perPage: Int, \$seasonYear: Int, \$season: MediaSeason, \$sort: [MediaSort]){
     Page(page: \$page, perPage: \$perPage){
