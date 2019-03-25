@@ -5,19 +5,20 @@ import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 import 'package:anilife/widgets/cover_card.dart';
 import 'package:anilife/widgets/cover.dart';
+import 'package:anilife/services/anilist_service.dart';
 import 'package:anilife/util/string_helper.dart';
 
-class MangaNoArgsGridView extends StatefulWidget {
+class MangaGrid extends StatefulWidget {
   final int pageSize;
-  final Function querry;
+  final Map<String, dynamic> variables;
 
-  MangaNoArgsGridView({Key key, @required this.pageSize, @required this.querry}) : super(key: key);
+  MangaGrid({Key key, @required this.pageSize, @required this.variables}) : super(key: key);
 
   @override
-  _MangaNoArgsGridViewState createState() => _MangaNoArgsGridViewState();
+  _MangaGridState createState() => _MangaGridState();
 }
 
-class _MangaNoArgsGridViewState extends State<MangaNoArgsGridView> {
+class _MangaGridState extends State<MangaGrid> {
   @override
   Widget build(BuildContext context) {
     return PagewiseGridView.count(
@@ -36,7 +37,10 @@ class _MangaNoArgsGridViewState extends State<MangaNoArgsGridView> {
         );
         return CoverCard(content: mangaCover, index: index);
       },
-      pageFuture: (int pageIndex) => widget.querry(pageIndex + 1, widget.pageSize),
+      pageFuture: (int pageIndex) {
+        widget.variables.addAll({"page": pageIndex + 1});
+        return AniListService.getMediaQueryWithFilters(widget.variables);
+      }
     );
   }
 }

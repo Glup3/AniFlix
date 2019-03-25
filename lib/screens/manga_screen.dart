@@ -5,9 +5,12 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_tab_bar_no_ripple/flutter_tab_bar_no_ripple.dart';
 
 import 'package:anilife/widgets/popup_menu.dart';
-import 'package:anilife/widgets/grids/manga_no_args_grid.dart';
+import 'package:anilife/widgets/grids/manga_grid.dart';
 import 'package:anilife/widgets/my_drawer.dart';
-import 'package:anilife/services/anilist_service.dart';
+import 'package:anilife/util/string_helper.dart';
+
+import 'package:anilife/enums/media_format.dart';
+import 'package:anilife/enums/media_sort.dart';
 
 class MangaScreen extends StatefulWidget {
   @override
@@ -15,6 +18,8 @@ class MangaScreen extends StatefulWidget {
 }
 
 class _MangaScreenState extends State<MangaScreen> {
+  final int perPage = 10;
+
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -88,8 +93,22 @@ class _MangaScreenState extends State<MangaScreen> {
 
   List<Widget> _getMangaTabs() {
     return <Widget>[
-      MangaNoArgsGridView(pageSize: 10, querry: AniListService.getMostPopularManga),
-      MangaNoArgsGridView(pageSize: 10, querry: AniListService.getBestScoreManga),
+      MangaGrid(
+        variables: {
+          "perPage": perPage,
+          "sort": StringHelper.getStringValueOfEnum(MediaSort.POPULARITY_DESC),
+          'format': StringHelper.getStringValueOfEnum(MediaFormat.MANGA),
+        },
+        pageSize: perPage,
+      ),
+      MangaGrid(
+        variables: {
+          "perPage": perPage,
+          "sort": StringHelper.getStringValueOfEnum(MediaSort.SCORE_DESC),
+          'format': StringHelper.getStringValueOfEnum(MediaFormat.MANGA),
+        },
+        pageSize: perPage,
+      ),
     ];
   }
 }
