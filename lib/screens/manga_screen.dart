@@ -30,7 +30,7 @@ class _MangaScreenState extends State<MangaScreen> {
 
   Widget _buildAndroidHome(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: Text('AniLife'),
@@ -89,6 +89,7 @@ class _MangaScreenState extends State<MangaScreen> {
       Container(child: Tab(text: 'Most Popular'), width: 100),
       Container(child: Tab(text: 'Best Score'), width: 100),
       Container(child: Tab(text: 'Last Updated'), width: 100),
+      Container(child: Tab(text: 'Trending'), width: 100),
     ];
   }
 
@@ -117,7 +118,15 @@ class _MangaScreenState extends State<MangaScreen> {
           'format': StringHelper.getStringValueOfEnum(MediaFormat.MANGA),
         },
         pageSize: perPage,
-      )
+      ),
+      MangaGrid(
+        variables: {
+          "perPage": perPage,
+          "sort": StringHelper.getStringValueOfEnum(MediaSort.TRENDING_DESC),
+          'format': StringHelper.getStringValueOfEnum(MediaFormat.MANGA),
+        },
+        pageSize: perPage,
+      ),
     ];
   }
 }
