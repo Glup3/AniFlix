@@ -5,25 +5,20 @@ import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 import 'package:anilife/widgets/cover_card.dart';
 import 'package:anilife/widgets/cover.dart';
-import 'package:anilife/services/anilist_service.dart';
 import 'package:anilife/util/string_helper.dart';
+import 'package:anilife/services/anilist_service.dart';
 
-import 'package:anilife/enums/media_season.dart';
-import 'package:anilife/enums/media_format.dart';
-
-class AnimeGridView extends StatefulWidget {
+class AnimeGrid extends StatefulWidget {
   final int pageSize;
-  final int seasonYear;
-  final MediaSeason season;
-  final MediaFormat format;
+  final Map<String, dynamic> variables;
 
-  AnimeGridView({Key key, @required this.pageSize, @required this.seasonYear, @required this.season, @required this.format}) : super(key: key);
+  AnimeGrid({Key key, @required this.variables, @required this.pageSize}) : super(key: key);
 
   @override
-  _AnimeGridViewState createState() => _AnimeGridViewState();
+  _AnimeGridState createState() => _AnimeGridState();
 }
 
-class _AnimeGridViewState extends State<AnimeGridView> {
+class _AnimeGridState extends State<AnimeGrid> {
   @override
   Widget build(BuildContext context) {
     return PagewiseGridView.count(
@@ -42,8 +37,10 @@ class _AnimeGridViewState extends State<AnimeGridView> {
         );
         return CoverCard(content: animeCover, index: index);
       },
-      pageFuture: (int pageIndex) => 
-          AniListService.getMediasOfSeason(pageIndex + 1, widget.pageSize, widget.seasonYear, widget.season, widget.format),
+      pageFuture: (int pageIndex) {
+        widget.variables.addAll({"page": pageIndex + 1});
+        return AniListService.getMediaQueryWithFilters(widget.variables);
+      },
     );
   }
 }

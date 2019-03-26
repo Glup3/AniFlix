@@ -8,16 +8,17 @@ import 'package:anilife/widgets/cover.dart';
 import 'package:anilife/services/anilist_service.dart';
 import 'package:anilife/util/string_helper.dart';
 
-class MangaGridView extends StatefulWidget {
+class MangaGrid extends StatefulWidget {
   final int pageSize;
+  final Map<String, dynamic> variables;
 
-  MangaGridView({Key key, @required this.pageSize}) : super(key: key);
+  MangaGrid({Key key, @required this.pageSize, @required this.variables}) : super(key: key);
 
   @override
-  _MangaGridViewState createState() => _MangaGridViewState();
+  _MangaGridState createState() => _MangaGridState();
 }
 
-class _MangaGridViewState extends State<MangaGridView> {
+class _MangaGridState extends State<MangaGrid> {
   @override
   Widget build(BuildContext context) {
     return PagewiseGridView.count(
@@ -36,8 +37,10 @@ class _MangaGridViewState extends State<MangaGridView> {
         );
         return CoverCard(content: mangaCover, index: index);
       },
-      pageFuture: (int pageIndex) => 
-          AniListService.getMostPopularManga(pageIndex + 1, widget.pageSize)
+      pageFuture: (int pageIndex) {
+        widget.variables.addAll({"page": pageIndex + 1});
+        return AniListService.getMediaQueryWithFilters(widget.variables);
+      }
     );
   }
 }

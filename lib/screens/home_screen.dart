@@ -7,9 +7,11 @@ import 'package:flutter_tab_bar_no_ripple/flutter_tab_bar_no_ripple.dart';
 import 'package:anilife/widgets/grids/anime_grid.dart';
 import 'package:anilife/widgets/popup_menu.dart';
 import 'package:anilife/widgets/my_drawer.dart';
+import 'package:anilife/util/string_helper.dart';
 
-import 'package:anilife/enums/media_format.dart';
 import 'package:anilife/enums/media_season.dart';
+import 'package:anilife/enums/media_format.dart';
+import 'package:anilife/enums/media_sort.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final int perPage = 10;
+
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -92,26 +96,46 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _getAnimeTabs() {
     return <Widget>[
-      AnimeGridView(
-          pageSize: 10,
-          seasonYear: 2019,
-          season: MediaSeason.WINTER,
-          format: MediaFormat.TV),
-      AnimeGridView(
-          pageSize: 10,
-          seasonYear: 2019,
-          season: MediaSeason.SPRING,
-          format: MediaFormat.TV),
-      AnimeGridView(
-          pageSize: 10,
-          seasonYear: 2019,
-          season: MediaSeason.SUMMER,
-          format: MediaFormat.TV),
-      AnimeGridView(
-          pageSize: 10,
-          seasonYear: 2019,
-          season: MediaSeason.FALL,
-          format: MediaFormat.TV),
+      AnimeGrid(
+        variables: {
+          "perPage": perPage,
+          "season": StringHelper.getStringValueOfEnum(MediaSeason.WINTER),
+          "seasonYear": 2019,
+          "sort": StringHelper.getStringValueOfEnum(MediaSort.POPULARITY_DESC),
+          'format': StringHelper.getStringValueOfEnum(MediaFormat.TV),
+        },
+        pageSize: perPage,
+      ),
+      AnimeGrid(
+        variables: {
+          "perPage": perPage,
+          "season": StringHelper.getStringValueOfEnum(MediaSeason.SPRING),
+          "seasonYear": 2019,
+          "sort": StringHelper.getStringValueOfEnum(MediaSort.POPULARITY_DESC),
+          'format': StringHelper.getStringValueOfEnum(MediaFormat.TV),
+        },
+        pageSize: perPage,
+      ),
+      AnimeGrid(
+        variables: {
+          "perPage": perPage,
+          "season": StringHelper.getStringValueOfEnum(MediaSeason.SUMMER),
+          "seasonYear": 2019,
+          "sort": StringHelper.getStringValueOfEnum(MediaSort.POPULARITY_DESC),
+          'format': StringHelper.getStringValueOfEnum(MediaFormat.TV),
+        },
+        pageSize: perPage,
+      ),
+      AnimeGrid(
+        variables: {
+          "perPage": perPage,
+          "season": StringHelper.getStringValueOfEnum(MediaSeason.FALL),
+          "seasonYear": 2019,
+          "sort": StringHelper.getStringValueOfEnum(MediaSort.POPULARITY_DESC),
+          'format': StringHelper.getStringValueOfEnum(MediaFormat.TV),
+        },
+        pageSize: perPage,
+      ),
     ];
   }
 }
